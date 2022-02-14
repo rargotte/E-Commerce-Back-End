@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const productsData = await Product.findAll({
-      include: [{ model: Category }, { model: Tag }],
+      include: [{ model: Category },{ model: Tag }],
     });
     res.status(200).json(productsData);
   } catch (err) {
@@ -22,8 +22,8 @@ router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try {
-    const productData = await Product.findByPk(req.params.id, {
-      include: [{ model: Category }, { model: Tag }],
+    const productData = await Product.findByPk(req.params.id,{
+      include: [{ model: Category },{ model: Tag }],
     });
     res.status(200).json(productData);
   } catch (err) {
@@ -32,7 +32,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // create new product
-router.post('/',(req, res) => {
+router.post('/', async (req, res) => {
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -63,24 +63,14 @@ router.post('/',(req, res) => {
     });
 });
 
-// update product 
-router.put('/:id',(req, res) => {
+// update product
+router.put('/:id', (req, res) => {
   // update product data
-  console.log(req.params.id);
-  Product.update(
-    {
-      // All the fields you can update and the data attached to the request body.
-      id: req.body.id,
-      product_name: req.body.product_name,
-      price: req.body.price,
-      stock: req.body.stock,
-      category_id: req.body.category_id
+  Product.update(req.body, {
+    where: {
+      id: req.params.id,
     },
-    {
-      where: {
-        id: req.params.id,
-      },
-    })
+  })
     .then((product) => {
       // find all associated tags from ProductTag
       return ProductTag.findAll({ where: { product_id: req.params.id } });
