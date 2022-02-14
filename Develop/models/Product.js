@@ -20,7 +20,7 @@ Product.init(
       allowNull: false,
     },
     price: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10,2),
       allowNull: false,
       validate: {
         isDecimal: true,
@@ -31,8 +31,9 @@ Product.init(
       allowNull: false,
       default: 10,
       validate: {
-        isNaN: false,
-      },
+        isInt: true
+      }
+
     },
     category_id: {
       type: DataTypes.INTEGER,
@@ -48,7 +49,7 @@ Product.init(
     sequelize,
     timestamps: false,
     freezeTableName: true,
-    underscored: true,
+    underscored: false,
     modelName: 'product',
   }
 );
