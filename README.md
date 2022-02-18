@@ -21,13 +21,17 @@ This is a back end for an e-commerce site. This app is based on Express.js API t
   This application uses Express.js, Sequilize and MySQL.
 
   You need to source the database, so please use MySQL commands to achieve this:
+
   `mysql -u root -p`
+
   `SOURCE db/schema.sql`
 
   Once you quit mysql do not forget to seed the database:
+
     `npm run seed`
 
   And then start the serve:
+  
     `npm start`
 
   # Usage
